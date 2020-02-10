@@ -214,9 +214,10 @@ def folium_map(geojson_to_overlay, layer_name, location, style_function=None, ti
     tiles = folium.TileLayer(tiles=tiles, attr=attr, name=attr, max_zoom=max_zoom,
                              overlay=True, show=True)
     if tms is True:
+        tiles.options = json.dumps(options, sort_keys=True, indent=2)
         options = json.loads(tiles.options)
         options.update({'tms': True})
-        tiles.options = json.dumps(options, sort_keys=True, indent=2)
+        #tiles.options = json.dumps(options, sort_keys=True, indent=2)
         tiles._template = jinja2.Template(u"""
         {% macro script(this, kwargs) %}
             var {{this.get_name()}} = L.tileLayer(
